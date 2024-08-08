@@ -1,0 +1,66 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv environment variables file
+.env
+
+# Directory for storing user-generated files
+uploads/
+
+# Optional npm cache directory
+.npm/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# IntelliJ
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.history/
+.vscode/
+.vscode-test/
+
+# Build directories
+dist/
+build/
+.cache/
+
+# Coverage directory used by testing tools
+coverage/
+
+# Dependency directories
+jspm_packages/
+
+# Production
+.pids
+*.pid
+*.seed
+*.pid.lock
+
+# Miscellaneous
+*.swp
+*~
+*.swo
+
+# Secrets and keys
+*.pem
+*.key
+*.crt
