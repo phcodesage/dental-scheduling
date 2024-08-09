@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, TextField, MenuItem, Button, Typography } from '@mui/material';
+import { Box, Typography, FormControl, InputLabel, Select, MenuItem, Button } from '@mui/material';
 
 const BookingPage = () => {
   const [dentists, setDentists] = useState([]);
@@ -8,27 +8,72 @@ const BookingPage = () => {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState('');
 
+  // Fetch the list of dentists on component mount
   useEffect(() => {
-    // Fetch dentists from an API or static data
-    axios.get('/api/dentists').then((response) => {
-      setDentists(response.data);
-    });
+    const fetchDentists = async () => {
+      try {
+        const response = await axios.get('/api/dentists');
+        setDentists(response.data);
+      } catch (error) {
+        console.error('Error fetching dentists:', error);
+      }
+    };
+    fetchDentists();
   }, []);
 
-  const handleDentistChange = (e) => {
-    setSelectedDentist(e.target.value);
-    axios.get(`/api/slots?dentist=${e.target.value}`).then((response) => {
-      setAvailableSlots(response.data);
-    });
-  };
+  // Fetch available slots when a dentist is selected
+  useEffect(() => {
+    if (selectedDentist) {
+      const fetchSlots = async () => {
+        try {
+          const response = await axios.get(`/api/dentists/${selectedDentist}/slots`);
+          setAvailableSlots(response.data);
+        } catch (error) {
+          console.error('Error fetching slots:', error);
+        }
+      };
+      fetchSlots();
+    }
+  }, [selectedDentist]);
 
-  const handleSlotChange = (e) => {
-    setSelectedSlot(e.target.value);
-  };
+  // Handle booking an appointment
+  const handleBooking = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-  const handleBooking = () => {
-    // Handle booking logic
-    console.log(`Booked with ${selectedDentist} at ${selectedSlot}`);
+      const response = await axios.post(
+        '/api/appointments',
+        {
+          dentistId: selectedDentist,
+          time: selectedSlot,  // Send only the time string
+        },
+        config
+      );
+
+      const appointment = response.data.appointment;
+      const dentistName = appointment?.dentist?.name;  // Safely access dentist name
+
+      if (dentistName) {
+        alert(`Appointment booked with ${dentistName} at ${appointment.time}`);
+      } else {
+        alert('Appointment booked, but dentist details are missing.');
+      }
+    } catch (error) {
+      console.error('Error booking appointment:', error);
+
+      if (error.response && error.response.data) {
+        // Display a specific error message from the server
+        alert(`Error: ${error.response.data.message}`);
+      } else {
+        // General error message
+        alert('An error occurred while booking the appointment. Please try again.');
+      }
+    }
   };
 
   return (
@@ -36,43 +81,40 @@ const BookingPage = () => {
       <Typography variant="h4" gutterBottom>
         Book an Appointment
       </Typography>
-      <TextField
-        select
-        label="Select Dentist"
-        value={selectedDentist}
-        onChange={handleDentistChange}
-        fullWidth
-        margin="normal"
-      >
-        {dentists.map((dentist) => (
-          <MenuItem key={dentist.id} value={dentist.id}>
-            {dentist.name}
-          </MenuItem>
-        ))}
-      </TextField>
-      <TextField
-        select
-        label="Select Time Slot"
-        value={selectedSlot}
-        onChange={handleSlotChange}
-        fullWidth
-        margin="normal"
-        disabled={!availableSlots.length}
-      >
-        {availableSlots.map((slot) => (
-          <MenuItem key={slot} value={slot}>
-            {slot}
-          </MenuItem>
-        ))}
-      </TextField>
+      <FormControl fullWidth sx={{ mt: 2 }}>
+        <InputLabel>Select Dentist</InputLabel>
+        <Select
+          value={selectedDentist}
+          onChange={(e) => setSelectedDentist(e.target.value)}
+        >
+          {dentists.map((dentist) => (
+            <MenuItem key={dentist._id} value={dentist._id}>
+              {dentist.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth sx={{ mt: 2 }} disabled={!selectedDentist}>
+        <InputLabel>Select Time Slot</InputLabel>
+        <Select
+          value={selectedSlot}
+          onChange={(e) => setSelectedSlot(e.target.value)}
+        >
+          {availableSlots.map((slot, index) => (
+            <MenuItem key={index} value={slot}>
+              {slot}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <Button
         variant="contained"
         color="primary"
+        sx={{ mt: 4 }}
         onClick={handleBooking}
-        fullWidth
-        sx={{ mt: 3 }}
+        disabled={!selectedSlot}
       >
-        Confirm Booking
+        Book Appointment
       </Button>
     </Box>
   );
