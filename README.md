@@ -1,8 +1,36 @@
-# dental-scheduling
-Here's a detailed README for your project that documents the setup, development, and deployment processes for both the frontend and backend of the dental office scheduling application.
+To include a video in your README, you can link to it if it's hosted online (e.g., on YouTube or another video hosting platform) or you can reference it as a downloadable file if it's included in the repository. Since GitHub doesn't support direct video playback within a README, embedding options are limited.
 
----
+### Option 1: Hosting the Video Online
 
+If you decide to host the video on a platform like YouTube, you can include a link in the README:
+
+```markdown
+## Project Walkthrough
+
+[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://youtu.be/VIDEO_ID)
+
+Click the image above to watch a detailed walkthrough of the project on YouTube.
+```
+
+Replace `VIDEO_ID` with the actual ID of the YouTube video.
+
+### Option 2: Direct File Reference
+
+If you're including the video as a file within your repository, you can link to it directly:
+
+```markdown
+## Project Walkthrough
+
+You can download and watch the project walkthrough video [here](path/to/your/video.mp4).
+
+To view the video, download it and open it with a media player.
+```
+
+Replace `path/to/your/video.mp4` with the relative path to the video file in your repository.
+
+### Complete README with Video Link
+
+```markdown
 # Dental Office Scheduling Application
 
 This repository contains the codebase for a dental office scheduling application, which includes a Node.js/Express backend and a React frontend. The application allows patients to book appointments with dentists, and it sends reminders to patients about their upcoming appointments.
@@ -18,6 +46,7 @@ This repository contains the codebase for a dental office scheduling application
 - [Building and Deploying](#building-and-deploying)
 - [Kubernetes Deployment](#kubernetes-deployment)
 - [License](#license)
+- [Project Walkthrough](#project-walkthrough)
 
 ## Features
 
@@ -258,10 +287,14 @@ Apply the service:
 kubectl apply -f service.yaml
 ```
 
+## Project Walkthrough
+
+You can download and watch the project walkthrough video [here](path/to/your/video.mp4).
+
 ## License
 
 This project is licensed under the MIT License.
 
 ---
 
-This README should provide a comprehensive guide to setting up, running, and deploying your dental office scheduling application.
+This README provides a comprehensive guide to setting up, running, and deploying your dental office scheduling application.
