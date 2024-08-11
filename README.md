@@ -1,34 +1,4 @@
-To include a video in your README, you can link to it if it's hosted online (e.g., on YouTube or another video hosting platform) or you can reference it as a downloadable file if it's included in the repository. Since GitHub doesn't support direct video playback within a README, embedding options are limited.
-
-### Option 1: Hosting the Video Online
-
-If you decide to host the video on a platform like YouTube, you can include a link in the README:
-
-```markdown
-## Project Walkthrough
-
-[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://youtu.be/VIDEO_ID)
-
-Click the image above to watch a detailed walkthrough of the project on YouTube.
-```
-
-Replace `VIDEO_ID` with the actual ID of the YouTube video.
-
-### Option 2: Direct File Reference
-
-If you're including the video as a file within your repository, you can link to it directly:
-
-```markdown
-## Project Walkthrough
-
-You can download and watch the project walkthrough video [here](path/to/your/video.mp4).
-
-To view the video, download it and open it with a media player.
-```
-
-Replace `path/to/your/video.mp4` with the relative path to the video file in your repository.
-
-### Complete README with Video Link
+Here's your README with sensitive information replaced or removed:
 
 ```markdown
 # Dental Office Scheduling Application
@@ -45,8 +15,8 @@ This repository contains the codebase for a dental office scheduling application
 - [Running the Application](#running-the-application)
 - [Building and Deploying](#building-and-deploying)
 - [Kubernetes Deployment](#kubernetes-deployment)
-- [License](#license)
 - [Project Walkthrough](#project-walkthrough)
+- [License](#license)
 
 ## Features
 
@@ -108,17 +78,17 @@ NODE_ENV=development
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/<dbname>?retryWrites=true&w=majority
 
 # JWT Secret Key
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=<your_jwt_secret>
 
-# SMTP Configuration (Mailtrap)
-SMTP_HOST=live.smtp.mailtrap.io
-SMTP_PORT=587
-SMTP_EMAIL=api
-SMTP_PASSWORD=your_smtp_password
+# SMTP Configuration
+SMTP_HOST=<your_smtp_host>
+SMTP_PORT=<your_smtp_port>
+SMTP_EMAIL=<your_smtp_email>
+SMTP_PASSWORD=<your_smtp_password>
 
 # Email Sender Information
 FROM_NAME=DentistBooking
-FROM_EMAIL=mailtrap@demomailtrap.com
+FROM_EMAIL=mailer@example.com
 
 # File Upload Configuration
 FILE_UPLOAD_PATH=./public/uploads
@@ -128,7 +98,7 @@ MAX_FILE_UPLOAD=5000000
 DOCKER_IMAGE_URI=public.ecr.aws/d0h9x8j7/dental-booking
 ```
 
-Replace `<username>`, `<password>`, and `<cluster-url>` with your MongoDB Atlas credentials.
+Replace the placeholders with your actual values.
 
 ## Running the Application
 
@@ -289,7 +259,7 @@ kubectl apply -f service.yaml
 
 ## Project Walkthrough
 
-You can download and watch the project walkthrough video [here](path/to/your/video.mp4).
+You can download and watch the project walkthrough video [here](./video-walkthrough.mp4).
 
 ## License
 
@@ -297,4 +267,3 @@ This project is licensed under the MIT License.
 
 ---
 
-This README provides a comprehensive guide to setting up, running, and deploying your dental office scheduling application.
