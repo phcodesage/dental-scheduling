@@ -1,25 +1,37 @@
+const asyncHandler = require('../middleware/asyncHandler');
 const Dentist = require('../models/Dentist');
 
-exports.getDentists = async (req, res) => {
-  try {
-    const dentists = await Dentist.find();
-    res.json(dentists);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Failed to retrieve dentists' });
-  }
-};
+// Get all dentists
+exports.getDentists = asyncHandler(async (req, res) => {
+  const dentists = await Dentist.find();
+  res.json(dentists);
+});
 
-exports.getAvailableSlots = async (req, res) => {
+
+// Get available slots for a specific dentist
+exports.getAvailableSlots = asyncHandler(async (req, res) => {
   const dentistId = req.params.id;
-  try {
-    const dentist = await Dentist.findById(dentistId);
-    if (!dentist) {
-      return res.status(404).json({ message: 'Dentist not found' });
-    }
-    res.json(dentist.availableSlots);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Failed to retrieve available slots' });
+
+  const dentist = await Dentist.findById(dentistId);
+  if (!dentist) {
+    return res.status(404).json({ message: 'Dentist not found' });
   }
-};
+  res.json(dentist.availableSlots);
+});
+
+
+exports.getDentistSlots = asyncHandler(async (req, res) => {
+  const dentist = await Dentist.findById(req.params.id);
+  if (!dentist) {
+    return res.status(404).json({ message: 'Dentist not found' });
+  }
+  res.json(dentist.availableSlots);
+});
+
+exports.getDentistById = asyncHandler(async (req, res) => {
+  const dentist = await Dentist.findById(req.params.id);
+  if (!dentist) {
+    return res.status(404).json({ message: 'Dentist not found' });
+  }
+  res.json(dentist);
+});

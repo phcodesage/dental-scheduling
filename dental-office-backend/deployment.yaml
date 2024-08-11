@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dental-booking-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dental-booking-backend
+  template:
+    metadata:
+      labels:
+        app: dental-booking-backend
+    spec:
+      containers:
+      - name: dental-booking-backend
+        image: public.ecr.aws/d0h9x8j7/dental-booking:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: MONGO_URI
+          value: "mongodb+srv://phcodesage:0VLnypVHitcECBZW@dental-schedule-databas.8er1ysw.mongodb.net/?retryWrites=true&w=majority&appName=dental-schedule-database"
+        - name: JWT_SECRET
+          value: "!!Bird123#"
+        - name: SMTP_HOST
+          value: "live.smtp.mailtrap.io"
+        - name: SMTP_PORT
+          value: "587"
+        - name: SMTP_EMAIL
+          value: "api"
+        - name: SMTP_PASSWORD
+          value: "1c5903ad82aa86adab13401991c9bbf1"
+        - name: FROM_NAME
+          value: "DentistBooking"
+        - name: FROM_EMAIL
+          value: "mailtrap@demomailtrap.com"
+        - name: FILE_UPLOAD_PATH
+          value: "./public/uploads"
+        - name: MAX_FILE_UPLOAD
+          value: "5000000"

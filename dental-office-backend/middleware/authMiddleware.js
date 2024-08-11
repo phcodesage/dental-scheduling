@@ -5,8 +5,7 @@ const authMiddleware = async (req, res, next) => {
   const authHeader = req.header('Authorization');
 
   if (!authHeader) {
-    res.status(401);
-    throw new Error('No token, authorization denied');
+    return res.status(401).json({ message: 'No token, authorization denied' });
   }
 
   const token = authHeader.replace('Bearer ', '');
@@ -16,8 +15,8 @@ const authMiddleware = async (req, res, next) => {
     req.user = await User.findById(decoded.id).select('-password');
     next();
   } catch (err) {
-    res.status(401);
-    throw new Error('Token is not valid');
+    console.error('Token validation failed:', err.message);
+    return res.status(401).json({ message: 'Token is not valid' });  // Send 401 instead of throwing an error
   }
 };
 
