@@ -1,5 +1,3 @@
-Here's your README with sensitive information replaced or removed:
-
 ```markdown
 # Dental Office Scheduling Application
 
