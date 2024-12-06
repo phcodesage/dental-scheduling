@@ -40,7 +40,6 @@ out/
 
 # Build directories
 dist/
-build/
 .cache/
 
 # Coverage directory used by testing tools
